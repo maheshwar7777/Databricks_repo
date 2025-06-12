@@ -1,0 +1,48 @@
+-- Databricks notebook source
+-- MAGIC %md
+-- MAGIC > # Project experiences
+-- MAGIC ## First project experiences :
+-- MAGIC
+-- MAGIC ### Project name : Transparency mandate (healthcare project)
+-- MAGIC
+-- MAGIC - Project overview : Every Healthcare payer must display their rate's in thier respective website for their servcies which they offer in thier respective. This help people to decide/ select the approriate healthcare plan. CMS made this mandate to every healthcare to displya their rates.
+-- MAGIC
+-- MAGIC - Implemenation of this project : We need to extract in-network and out of networks rate from our oracle database. 
+-- MAGIC           
+-- MAGIC       -->In-network : We had core job to extract semi pricing information in csv files and placed in ADLS gen 2. We build a framework to pick the csv file from ADLS gen2 and perform cleansing and tranformations(cleaning the unwanted information and adding additional information) and stored them in delta tables. And we transforemd delta tables data into json files (Here : we worte the dataframe (form delta table) date in json formate) and  placed in ADLS gen 2.. From ADLS gen2. We migrated the json pricing files to client webservice to host the pricing files.
+-- MAGIC
+-- MAGIC       --> Out of netwrok : We built a framework to pull last 180 days claims data (from sql server tables)   into dataframe and performed transformations logic and populated inot delta table. and then generated json files from delta tables and placed into ADLS gen2 and we migrated the json pricing files to client webservice to host the pricing files.
+-- MAGIC
+-- MAGIC       --> Other vendors : OUr client provides services to other vendor. We get semi riing inofmration from other vendor and bilut frame workd and pipeline to generete pricing files and migrated the json pricing files to client webservice to host the pricing files.
+-- MAGIC
+-- MAGIC
+-- MAGIC ### Project name : Encounter over haul process project 
+-- MAGIC
+-- MAGIC - Project oveview : We receive encounter claims from external vendors to store the claims payment information. In these process many of the encouter getting errored out and busniess wants to know how many encounter are processing and failing.
+-- MAGIC
+-- MAGIC - Implementation : 
+-- MAGIC
+-- MAGIC         --> We built a stored procedure to performed tranformations and calcuation and determine the success and failing rate percentage and we bulit a pipeline to invoke the stored procedure and extract them into csv file and sent to vndor for review.
+-- MAGIC         --> Businees will reivew and send the corrected files through csv files. We place the inbound file in ADLS gen2. We read the csv file into dataframe and perform some tranformations and loaded into delta tables.
+-- MAGIC         --> We tranfer the delta table data into sql server tables for encounter processing.
+-- MAGIC         --> We created gold layer delta tables with encouters which are Outbounded and inbounded.
+-- MAGIC         --> BI team team utilizes the delta table and create insighte out of it and share it to busniess.
+-- MAGIC
+-- MAGIC
+-- MAGIC
+-- MAGIC ### Project name : claim processing report
+-- MAGIC
+-- MAGIC - Project oveview : We receive member 
+-- MAGIC
+-- MAGIC
+-- MAGIC
+-- MAGIC ### Project name : Bill of material reconciliation.
+-- MAGIC
+-- MAGIC - Project oveview : We need to reconcile bill of material data between two different systems. 
+-- MAGIC
+-- MAGIC - Implementation : 
+-- MAGIC      --> We implemented stored procedure to extract bill of material information from oracle and stored them in staging tables.
+-- MAGIC      --> We recevie PIM (vendor data ) in csv file and we stored them in ADLS gen2.
+-- MAGIC      --> We pull csv file data into dataframes and perform transformation logic and extracted into final csv files in ADLS gen2.
+-- MAGIC      --> We load the final csv files into oralce table and implemented complex stored procedure to perfom comparison between oracle data and PIM data and generate a report of out of share to busniess to correc the systems.
+-- MAGIC

@@ -1,0 +1,13 @@
+-- Databricks notebook source
+-- MAGIC %python
+-- MAGIC #to list the commands under databricks file system utilities (dbutils)
+-- MAGIC dbutils.fs.help()
+-- MAGIC
+-- MAGIC # to check the databricks file systems 
+-- MAGIC  display(dbutils.fs.ls(''))  #inside quotes , we can mentions the path to check the files , folders
+-- MAGIC
+-- MAGIC  #to read the file
+-- MAGIC
+-- MAGIC  df = spark.read.option('header',True).csv('') #we can mention the file path to read
+-- MAGIC  display(df) # we can use display() function to print the data in tabular format 
+-- MAGIC
