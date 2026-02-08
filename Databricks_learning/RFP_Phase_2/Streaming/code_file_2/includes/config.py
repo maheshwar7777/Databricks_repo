@@ -1,0 +1,9 @@
+CATALOG = "rfp2_streaming"  
+BRONZE_DATABASE = "dq_bronze_02"  
+SILVER_DATABASE = "dq_silver_02"  
+GOLD_DATABASE = "dq_gold_02"
+BASE_PATH = "abfss://usecase-impl-db@dbpracticejetsa.dfs.core.windows.net/landing-zone/"
+SCHEMA_PATH = "/Volumes/rfp2_streaming/default/schema_files/"
+TABLE_LIST = ["allergies", "conditions", "encounters", "organizations", "supplies", "patients"]
+AUTOLOADER_BRONZE_CHECKPOINT_PATH = "abfss://usecase-impl-db@dbpracticejetsa.dfs.core.windows.net/bronze/checkpoints/"
+CONFIG_PATH = "/Workspace/Users/prachi.sankhala@devshelf0.onmicrosoft.com/rfp_streaming_3197/includes/dq_config.yaml"

@@ -1,0 +1,97 @@
+tables:
+  patients:
+    cleansing:
+      - column: "first"
+        operation: "trim"
+      - column: "last"
+        operation: "trim"
+      - column: "address"
+        operation: "trim"
+      - column: "city"
+        operation: "trim"
+      - column: "state"
+        operation: "trim"
+
+    derived_columns:
+      - name: "full_name"
+        expression: "concat_ws(' ', first, last)"
+      - name: "lat_lon"
+        expression: "concat(lat, ',', lon)"
+
+    expectations:
+      - column: "id"
+        rule: "not_null"
+      - column: "passport"
+        rule: "not_null"
+      - column: "birthdate"
+        rule: "date_past"
+      - column: "deathdate"
+        rule: "date_future"
+      - column: "gender"
+        rule: "in_list"
+        allowed_values: ["F", "other"]
+        type: "expect_or_drop"
+      - column: "race"
+        rule: "in_list"
+        allowed_values: ["white", "black", "asian", "native", "hispanic", "other"]
+      - column: "ethnicity"
+        rule: "in_list"
+        allowed_values: ["hispanic", "non-hispanic"]
+      - column: "ssn"
+        rule: "regex"
+        pattern: "^[0-9]{3}-[0-9]{2}-[0-9]{4}$"
+      - column: "income"
+        rule: "range"
+        min: 0
+        max: 100000
+        type: "expect_or_drop"
+      - column: "healthcare_expenses"
+        rule: "range"
+        min: 0
+        max: 500000
+      - column: "healthcare_coverage"
+        rule: "range"
+
+  encounters:
+    drop_duplicates:
+      keys: ["id"]
+    expectations:
+      - column: base_encounter_cost
+        rule: range
+        min: 0
+        max: 10000
+        type: expect_or_drop
+      - column: total_claim_cost
+        rule: range
+        min: 0
+        max: 20000
+        type: expect_or_drop
+      - column: encounterclass
+        rule: in_list
+        allowed_values: ["inpatient", "outpatient", "ambulatory", "emergency"]
+        type: expect
+
+  organizations:
+    cleansing:
+      - column: name
+        operation: trim
+    expectations:
+      - column: revenue
+        rule: range
+        min: 0
+        max: 100000000
+        type: expect_or_drop
+      - column: utilization
+        rule: range
+        min: 0
+        max: 100
+        type: expect
+
+  supplies:
+    expectations:
+      - column: quantity
+        rule: range
+        min: 1
+        max: 500
+        type: expect_or_drop
+

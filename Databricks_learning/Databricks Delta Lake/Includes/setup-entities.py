@@ -1,0 +1,5 @@
+from Includes.config import *
+
+spark.sql(f"CREATE CATALOG IF NOT EXISTS `{CATALOG}`")
+spark.sql(f"CREATE SCHEMA IF NOT EXISTS `{CATALOG}`.{DEMO_SCHEMA}")
+spark.sql(f"CREATE VOLUME IF NOT EXISTS `{CATALOG}`.{DEMO_SCHEMA}.{VOLUME_NAME}")
